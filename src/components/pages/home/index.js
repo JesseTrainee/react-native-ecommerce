@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View , Text,ScrollView} from 'react-native';
+import { View , Text,ScrollView, FlatList} from 'react-native';
 import apiProduto from '../../../service/apiProduto';
 import Produto from '../../../model/produto'
 import Card from '../../card/index'
@@ -13,19 +13,21 @@ const Home = () => {
         setProdutos(resposta.data.map( produto => new Produto(produto)));
     }
 
+    const renderProduto = ({ item }) => (
+        <Card nome={item.nome} preco={item.preco} imagem={item.url}/>
+      );
+
     useEffect(()=>{
         handleProdutos();
     },[produtos])
 
   return (
     <View>
-        <ScrollView>
-      {produtos.map(produto => (
-          <View key={produto.nome }>
-                <Card nome={produto.nome} preco={produto.preco} imagem={produto.url}/>
-          </View>
-      ))}
-        </ScrollView>
+        <FlatList 
+            data={produtos}
+            keyExtractor={ item => item.nome}
+            renderItem={renderProduto}
+        />
     </View>
   )
 }

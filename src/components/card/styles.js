@@ -1,6 +1,11 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+    Container:{
+        flex:1,
+        borderRadius:25,
+        backgroundColor:'#f4a261'
+    },
     Titulo:{
         width: 250,
         height: 250,
